@@ -5,15 +5,25 @@ namespace TheEisenhowerMatrix
 {
     public class Matrix
     {
-        public override string ToString();
 
-        private List<Item> _items;
+        public string Name;
+        private List<Item> _items = new();
+
+        public Matrix(string matrixName)
+        {
+            Name = matrixName;
+        }
+
+        public void AddItem(Item item)
+        {
+            _items.Add(item);
+        }
 
         public void ArchiveAllDoneItems()
         {
             foreach (Item item in _items.ToList())
             {
-                if (item.Status != ItemStatus.unmarked)
+                if (item.Status != ItemStatus.Unmarked)
                 {
                     _items.Remove(item);
                 }
@@ -25,5 +35,9 @@ namespace TheEisenhowerMatrix
             _items.Remove(item);
         }
 
+        public override string ToString()
+        {
+
+        };
     }
 }
