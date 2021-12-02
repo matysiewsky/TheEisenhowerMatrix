@@ -18,7 +18,7 @@ namespace TheEisenhowerMatrix
             _message = message;
             _type = type;
             _deadline = deadline;
-            Status = ItemStatus.unmarked;
+            Status = ItemStatus.Unmarked;
         }
 
         public void SetStatus(ItemStatus status)
@@ -28,17 +28,17 @@ namespace TheEisenhowerMatrix
 
         public void MarkAsMarked()
         {
-            Status = ItemStatus.marked;
+            Status = ItemStatus.Marked;
         }
 
         public void MarkAsUnmarked()
         {
-            Status = ItemStatus.unmarked;
+            Status = ItemStatus.Unmarked;
         }
 
         public void MarkAsArchived()
         {
-            Status = ItemStatus.archived;
+            Status = ItemStatus.Archived;
         }
 
         // public string GetFormattedDeadline()
@@ -49,16 +49,16 @@ namespace TheEisenhowerMatrix
 
     public enum ItemType
     {
-        urgentimportant,
-        noturgentimportant,
-        urgentnotimportant,
-        noturgentnotimportantitems
+        Urgentimportant,
+        Noturgentimportant,
+        Urgentnotimportant,
+        Noturgentnotimportantitems
     }
 
     public enum ItemStatus
     {
-        unmarked,
-        marked,
-        archived
+        Unmarked,
+        Marked,
+        Archived
     }
 }
