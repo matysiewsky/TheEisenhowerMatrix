@@ -6,7 +6,30 @@ namespace TheEisenhowerMatrix
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Display.DisplayHelloMessage();
+            Display.FreezeDisplay(4);
+            // Display.ClearDisplay();
+            Display.ChooseMode();
+
+            ProgramMode modeSet = Input.ChooseMode();
+
+            Matrix currentUserMatrix;
+
+            if (modeSet == ProgramMode.ExistingCSV)
+            {
+                Display.FileChoiceMessage();
+                string[] savedData = DataManager.GetSavedData();
+                string fileName = Input.ChooseFromSavedData(savedData);
+
+                currentUserMatrix = DataManager.ImportUserData(fileName);
+            }
+            else
+            {
+                string nameChoice = Input.ChooseNameForMatrix();
+
+                currentUserMatrix = new(nameChoice);
+            }
+
         }
     }
 }
