@@ -28,6 +28,11 @@ namespace TheEisenhowerMatrix
                     _items.Remove(item);
                 }
             }
+
+
+            // try this shorter syntax:
+            // _items.RemoveAll(item => item.Status != ItemStatus.Unmarked);
+
         }
 
         public void RemoveAnItem(Item item)
@@ -35,9 +40,9 @@ namespace TheEisenhowerMatrix
             _items.Remove(item);
         }
 
-        public override string ToString()
-        {
-
-        };
+        // public override string ToString()
+        // {
+        //
+        // };
     }
 }
