@@ -41,10 +41,7 @@ namespace TheEisenhowerMatrix
             Status = ItemStatus.Archived;
         }
 
-        // public string GetFormattedDeadline()
-        // {
-        //
-        // }
+        public string GetFormattedDeadline() => $"{_deadline:dd-MM}";
     }
 
     public enum ItemType
