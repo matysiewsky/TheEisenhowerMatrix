@@ -68,5 +68,25 @@ Please choose by typing 1 or 2:
         {
             Console.WriteLine("Please provide a name for your Matrix. Only letters, at least 5 chars.");
         }
+
+        public static void ItemAddingMessages(int whichMessage)
+        {
+            string[] messages =
+            {
+                "Please provide To Do Item description, at least 5 chars.",
+
+                @"Please choose one of the following levels of urgency & importance:
+Type:
+1 for Urgent & important,
+2 for Not urgent, but important,
+3 for Urgent, but not important,
+4 for Not urgent & not important",
+
+                @"Please provide a deadline for the To Do Item formatted in dd/mm/yyyy. 
+If the item doesn't have one type: 'Nope'",
+            };
+
+            Console.WriteLine(messages[whichMessage - 1]);
+        }
     }
 }

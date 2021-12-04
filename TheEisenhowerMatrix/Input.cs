@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using System.Linq;
 
@@ -53,10 +54,10 @@ namespace TheEisenhowerMatrix
 
         public static string ChooseNameForMatrix()
         {
-            string choice = "";
+            string? choice = null;
             Display.MatrixNameChoiceMessage();
 
-            while (choice != "")
+            while (choice != null)
             {
                 string userInput = Console.ReadLine();
 
@@ -71,6 +72,62 @@ namespace TheEisenhowerMatrix
             }
 
             return choice;
+        }
+
+        public static Item CreateItem()
+        {
+            string? itemDescription = null;
+            ItemType? itemType = null;
+            DateTime? itemDeadline = null;
+
+            Display.ItemAddingMessages(1);
+
+            while (itemDescription == null)
+            {
+                string userInput = Console.ReadLine();
+
+                if (userInput.Length >= 5)
+                {
+                    itemDescription = userInput;
+                }
+                else
+                {
+                    Display.WrongInput();
+                }
+            }
+
+            Display.ItemAddingMessages(2);
+
+            while (itemType == null)
+            {
+                string userInput = Console.ReadLine();
+
+                if (int.TryParse(userInput, out int chosenType) && chosenType is >= 1 and <= 4)
+                {
+                    itemType = (ItemType) chosenType;
+                    break;
+                }
+
+                Display.WrongInput();
+            }
+
+            Display.ItemAddingMessages(3);
+
+            while (itemDeadline == null)
+            {
+                string userInput = Console.ReadLine();
+
+                if (DateTime.TryParse(userInput, out DateTime chosenDeadline) &&
+                    chosenDeadline >= DateTime.Now)
+                {
+                    itemDeadline = chosenDeadline;
+                }
+
+                Display.WrongInput();
+            }
+
+            return new Item(itemDescription, itemType, itemDeadline);
+
         }
     }
 }

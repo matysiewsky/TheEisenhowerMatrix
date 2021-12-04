@@ -9,8 +9,6 @@ namespace TheEisenhowerMatrix
             Display.DisplayHelloMessage();
             Display.FreezeDisplay(4);
             // Display.ClearDisplay();
-            Display.ChooseMode();
-
             ProgramMode modeSet = Input.ChooseMode();
 
             Matrix currentUserMatrix;
@@ -23,13 +21,25 @@ namespace TheEisenhowerMatrix
 
                 currentUserMatrix = DataManager.ImportUserData(fileName);
             }
-            else
+            else if (modeSet == ProgramMode.NewCSV)
             {
                 string nameChoice = Input.ChooseNameForMatrix();
 
                 currentUserMatrix = new(nameChoice);
             }
 
+            bool MatrixRunning = true;
+
+            while (MatrixRunning)
+            {
+                // Display.
+                switch (Console.ReadKey().KeyChar)
+                {
+                    case '1':
+                        Input.CreateItem();
+                        break;
+                }
+            }
         }
     }
 }
