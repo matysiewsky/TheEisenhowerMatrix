@@ -3,14 +3,10 @@ using System.Collections.Generic;
 
 namespace TheEisenhowerMatrix
 {
-    public class MatrixManager
+    public static class MatrixManager
     {
-        System.Text.StringBuilder matrix = new System.Text.StringBuilder();
-        string newLine = Environment.NewLine;
-        string line = " ----------------------------------------------------------------------------------------------------------" + Environment.NewLine;
 
-
-        public string NewRow(string firstParametr, string secondParametr)
+        private static string NewRow(string firstParametr, string secondParametr)
         {
             string row = String.Format("| {0, -50} | {1, -50} |", firstParametr, secondParametr);
             row += Environment.NewLine;
@@ -18,7 +14,7 @@ namespace TheEisenhowerMatrix
         }
 
 
-        public void CreateMatrixPart(List<string> list1, List<string> list2)
+        private static void CreateMatrixPart(List<string> list1, List<string> list2, System.Text.StringBuilder matrix, string line)
         {
             int list1Length = list1.Count;
             int list2Length = list2.Count;
@@ -45,7 +41,7 @@ namespace TheEisenhowerMatrix
         }
 
 
-        public List<string> CreateListsOfElements(Dictionary<string, List<string>> ToDoMatrix, string key)
+        private static List<string> CreateListsOfElements(Dictionary<ItemType, List<Item>> ToDoMatrix, ItemType key)
         {
             var list = new List<string>();
 
@@ -55,7 +51,7 @@ namespace TheEisenhowerMatrix
                 {
                     foreach (var i in item.Value)
                     {
-                        list.Add(i);
+                        list.Add(Convert.ToString(i));
                     }
                 }
             }
@@ -63,32 +59,27 @@ namespace TheEisenhowerMatrix
             return list;
         }
 
-        public System.Text.StringBuilder CreateMatrix(Dictionary<string, List<string>> dictionaryOfItems)
+        public static void CreateAndDisplayMatrix(Dictionary<ItemType, List<Item>> dictionaryOfItems)
         {
-            // EXAMPLE OF DICTIONARY, only for tests
-            //var ToDoMatrix = new Dictionary<string, List<string>>()
-            //{
-            //    { "IU", new List<string>{"Something important and urgent 1", "Something important and urgent 2", "iu", "do it!", "now.."} },
-            //    { "IN", new List<string>{ "imp, not urgent 1", "imp, not urgent 2", "imp, not urgent 3", "4", "5", "6", "7", "8"} },
-            //    { "NU", new List<string>{ "sth nu 1", "sth nu 2" , "sth nu 3" , "sth nu 4" } } ,
-            //    { "NN", new List<string>{ "sth nn 1"} }
-            //};
+            System.Text.StringBuilder matrix = new System.Text.StringBuilder();
+            string newLine = Environment.NewLine;
+            string line = "-----------------------------------------------------------------------------------------------------------" + Environment.NewLine;
 
             matrix.Append(line);
-            matrix.Append(NewRow("A) important & urgent", "B) important & not urgent"));
+            matrix.Append(NewRow("A. important & urgent", "B. important & not urgent"));
             matrix.Append(line);
 
-            var importantAndUrgent = CreateListsOfElements(dictionaryOfItems, "IU");
-            var importantAndNotUrgent = CreateListsOfElements(dictionaryOfItems, "IN");
-            var notImportantAndUrgent = CreateListsOfElements(dictionaryOfItems, "NU");
-            var notImportantAndNotUrgent = CreateListsOfElements(dictionaryOfItems, "NN");
+            var importantAndUrgent = CreateListsOfElements(dictionaryOfItems, ItemType.Urgentimportant);
+            var importantAndNotUrgent = CreateListsOfElements(dictionaryOfItems, ItemType.Noturgentimportant);
+            var notImportantAndUrgent = CreateListsOfElements(dictionaryOfItems, ItemType.Urgentnotimportant);
+            var notImportantAndNotUrgent = CreateListsOfElements(dictionaryOfItems, ItemType.Noturgentnotimportantitems);
 
-            CreateMatrixPart(importantAndUrgent, importantAndNotUrgent);
-            matrix.Append(NewRow("C) not important & urgent", "D) not important & not urgent"));
+            CreateMatrixPart(importantAndUrgent, importantAndNotUrgent, matrix, line);
+            matrix.Append(NewRow("C. not important & urgent", "D. not important & not urgent"));
             matrix.Append(line);
-            CreateMatrixPart(notImportantAndUrgent, notImportantAndNotUrgent);
+            CreateMatrixPart(notImportantAndUrgent, notImportantAndNotUrgent, matrix, line);
 
-            return matrix;
+            Console.WriteLine(matrix);
 
         }
 
