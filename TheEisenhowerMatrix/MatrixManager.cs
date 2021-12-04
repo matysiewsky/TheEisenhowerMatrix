@@ -59,6 +59,7 @@ namespace TheEisenhowerMatrix
             return list;
         }
 
+
         public static void CreateAndDisplayMatrix(Dictionary<ItemType, List<Item>> dictionaryOfItems)
         {
             System.Text.StringBuilder matrix = new System.Text.StringBuilder();
