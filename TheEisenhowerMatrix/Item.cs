@@ -4,7 +4,7 @@ namespace TheEisenhowerMatrix
 {
     public class Item : IItem
     {
-        private readonly ItemType? _type;
+        public ItemType? _type { get; private set; }
         private DateTime? _deadline;
         private string? _message;
 
@@ -43,10 +43,12 @@ namespace TheEisenhowerMatrix
 
         public string GetFormattedDeadline() => $"{_deadline:dd-MM}";
 
-        // public override string ToString()
-        // {
-        //
-        // }
+
+        public override string ToString()
+        {
+            return (this.Status == ItemStatus.Unmarked) ? $"[] {this.GetFormattedDeadline()} {_message}":
+                $"[x] {this.GetFormattedDeadline()} {_message}";
+        }
     }
 
     public enum ItemType
