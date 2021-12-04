@@ -44,5 +44,36 @@ namespace TheEisenhowerMatrix
         // {
         //
         // };
+
+
+        public Dictionary<ItemType, List<Item>> CreateDictionaryOfItems()
+        {
+
+            var dictionaryOfItems = new Dictionary<ItemType, List<Item>>()
+            {
+                { ItemType.Urgentimportant, SortItems(ItemType.Urgentimportant) },
+                { ItemType.Noturgentimportant, SortItems(ItemType.Noturgentimportant) },
+                { ItemType.Urgentnotimportant, SortItems(ItemType.Urgentnotimportant) } ,
+                { ItemType.Noturgentnotimportantitems, SortItems(ItemType.Noturgentnotimportantitems) }
+            };
+
+            return dictionaryOfItems;
+        }
+
+
+        private List<Item> SortItems(ItemType itemType)
+        {
+            var list = new List<Item>();
+            
+            foreach (var item in this._items)
+            {
+                if (item._type == itemType)
+                {
+                    list.Add(item);
+                }
+            }
+
+            return list;
+        }
     }
 }
