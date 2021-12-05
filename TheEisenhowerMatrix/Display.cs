@@ -39,9 +39,18 @@ Please choose by typing 1 or 2:
             Console.WriteLine(matrix);
         }
 
-        public static void WrongInput()
+        public static void WrongInput(int whichMessage)
         {
-            Console.WriteLine("Wrong key pressed. Please try again!");
+            string[] messages =
+            {
+                "Wrong key pressed. Please try again!",
+                "Wrong input. Please try again!",
+                "There is no such position in the indicated list of the To Do Items!",
+                "Position in the indicated list of the To Do Items is already marked as done!",
+                "Position in the indicated list of the To Do Items is already marked as undone!"
+            };
+
+            Console.WriteLine(messages[whichMessage]);
         }
 
         public static void ClearDisplay()
@@ -87,6 +96,33 @@ If the item doesn't have one type: 'Nope'",
             };
 
             Console.WriteLine(messages[whichMessage - 1]);
+        }
+
+        public static void MatrixNamePrint(Matrix currentUserMatrix)
+        {
+            Console.WriteLine($"The Eisenhower Matrix, name: {currentUserMatrix.Name}");
+        }
+
+        public static void PrintPossibleOperationsOnMatrix()
+        {
+            Console.WriteLine(@"Options, press: 
+1 for adding a new To Do Item to your Matrix,
+2 for marking the To Do Item as done,
+3 for marking the To Do Item as not done,
+4 for remove the item,
+5 for archive all done To Do Items,
+9 for quitting The App.");
+        }
+
+        public static void MarkingAsMessages(int whichMessage)
+        {
+            string[] messages =
+            {
+                "DONE: Please assign the level of urgency & importance (1-4) and the position of the item in the list. (ex. 1-10)",
+                "UNDONE: Please assign the level of urgency & importance (1-4) and the position of the item in the list. (ex. 1-10)"
+            };
+
+            Console.WriteLine(messages[whichMessage]);
         }
     }
 }
