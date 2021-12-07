@@ -86,6 +86,11 @@ namespace TheEisenhowerMatrix
             var notImportantAndUrgentItems = CreateListsOfItems(dictionaryOfItems, ItemType.Urgentnotimportant);
             var notImportantAndNotUrgentItems = CreateListsOfItems(dictionaryOfItems, ItemType.Noturgentnotimportantitems);
 
+            importantAndUrgentItems.Sort();
+            importantAndNotUrgentItems.Sort();
+            notImportantAndUrgentItems.Sort();
+            notImportantAndNotUrgentItems.Sort();
+
             CreateMatrixPart(importantAndUrgentItems, importantAndNotUrgentItems);
             Console.WriteLine(line);
             Console.WriteLine(NewRow("C. not important & urgent", "D. not important & not urgent"));

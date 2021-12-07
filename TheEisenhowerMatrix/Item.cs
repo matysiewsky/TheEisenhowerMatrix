@@ -2,7 +2,7 @@ using System;
 
 namespace TheEisenhowerMatrix
 {
-    public class Item : IItem
+    public class Item : IItem, IComparable<Item>
     {
         public ItemType? _type { get; private set; }
         private DateTime? _deadline;
@@ -66,6 +66,19 @@ namespace TheEisenhowerMatrix
         {
             return (this.Status == ItemStatus.Unmarked) ? $"[] {this.GetFormattedDeadline()} {_message}":
                 $"[x] {this.GetFormattedDeadline()} {_message}";
+        }
+
+        public int CompareTo(Item other)
+        {
+            if(this._deadline > other._deadline)
+            {
+                return 1;
+            }
+            else if(this._deadline < other._deadline)
+            {
+                return -1;
+            }
+            return 0;
         }
     }
 
