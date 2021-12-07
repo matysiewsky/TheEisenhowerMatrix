@@ -21,6 +21,10 @@ namespace TheEisenhowerMatrix
             Status = ItemStatus.Unmarked;
         }
 
+        public Item()
+        {
+        }
+
         public void SetStatus(ItemStatus status)
         {
             Status = status;
@@ -42,6 +46,20 @@ namespace TheEisenhowerMatrix
         }
 
         public string GetFormattedDeadline() => $"{_deadline:dd-MM}";
+
+
+        public ConsoleColor GetColor()
+        {
+            if (((DateTime)this._deadline - DateTime.Today).Days <= 1)
+            {
+                return ConsoleColor.Red;
+            }
+            else if(((DateTime)this._deadline - DateTime.Today).Days <= 3)
+            {
+                return ConsoleColor.DarkYellow;
+            }
+            return ConsoleColor.Green;
+        }
 
 
         public override string ToString()
