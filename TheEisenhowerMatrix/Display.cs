@@ -124,5 +124,44 @@ If the item doesn't have one type: 'Nope'",
 
             Console.WriteLine(messages[whichMessage]);
         }
+
+        public static void PrintLine()
+        {
+            Console.WriteLine("-----------------------------------------------------------------------------------------------------------");
+        }
+
+        public static void PrintHeader(string firstHeader, string secondHeader)
+        {
+            Console.WriteLine("| {0, -50} | {1, -50} |", firstHeader, secondHeader);
+        }
+
+        public static void PrintHorizontalLine(LinePosition position)
+        {
+            if (position == LinePosition.Left)
+            {
+                Console.Write("| ");
+            }
+            else if (position == LinePosition.Center)
+            {
+                Console.Write(" | ");
+            }
+            else if (position == LinePosition.Right)
+            {
+                Console.WriteLine(" |");
+            }
+        }
+
+        public static void PrintColoredTask(ConsoleColor color, string task)
+        {
+            Console.ForegroundColor = color;
+            Console.Write("{0, -50}", task);
+            Console.ResetColor();
+
+        }
+
+        public static void PirintEmptySpace()
+        {
+            Console.Write("{0, -50}", "");
+        }
     }
 }

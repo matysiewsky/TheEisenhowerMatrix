@@ -73,6 +73,7 @@ namespace TheEisenhowerMatrix
                 }
             }
 
+            list.Sort();
             return list;
         }
     }

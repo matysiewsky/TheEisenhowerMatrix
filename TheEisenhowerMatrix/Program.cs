@@ -7,19 +7,6 @@ namespace TheEisenhowerMatrix
     {
         static void Main(string[] args)
         {
-            // FOR TESTS:
-            //Matrix matrix1 = new Matrix("matrix1");
-
-            //matrix1.AddItem(new Item("learn to code", ItemType.Urgentimportant, new DateTime(2021, 12, 09)));
-            //matrix1.AddItem(new Item("sleep", ItemType.Noturgentimportant, new DateTime(2021, 12, 05)));
-            //matrix1.AddItem(new Item("watch tv", ItemType.Noturgentnotimportantitems, new DateTime(2021, 12, 07)));
-            //matrix1.AddItem(new Item("read book", ItemType.Noturgentnotimportantitems, new DateTime(2021, 12, 22)));
-            //matrix1.AddItem(new Item("shopping", ItemType.Noturgentnotimportantitems, new DateTime(2021, 12, 16)));
-
-            //var dictionary = matrix1.CreateDictionaryOfItems();
-            //MatrixManager.CreateAndDisplayMatrix(dictionary);
-
-
             Display.DisplayHelloMessage();
             Display.FreezeDisplay(4);
             // Display.ClearDisplay();
@@ -51,7 +38,7 @@ namespace TheEisenhowerMatrix
                 Dictionary<ItemType, List<Item>> matrixToPrint = currentUserMatrix.CreateDictionaryOfItems();
 
                 Display.MatrixNamePrint(currentUserMatrix);
-                MatrixManager.CreateAndDisplayMatrix(matrixToPrint);
+                MatrixManager.CreateMatrix(matrixToPrint);
                 Display.PrintPossibleOperationsOnMatrix();
 
                 switch (Console.ReadKey().KeyChar)

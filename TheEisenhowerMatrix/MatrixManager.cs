@@ -5,24 +5,17 @@ namespace TheEisenhowerMatrix
 {
     public static class MatrixManager
     {
-
-        private static string NewRow(string firstParametr, string secondParametr)
-        {
-            return String.Format("| {0, -50} | {1, -50} |", firstParametr, secondParametr);
-        }
-
-
-        private static void AddTaskColored(List<Item> listOfItems, int j, string parametr)
+        private static void CreateTask(List<Item> listOfItems, int j, string task)
         {
             if (listOfItems[j]._type != null)
             {
                 ConsoleColor color = listOfItems[j].GetColor();
-                Console.ForegroundColor = color;
+                Display.PrintColoredTask(color, task);
             }
-
-            Console.Write("{0, -50}", parametr);
-            Console.ResetColor();
-
+            else
+            {
+                Display.PirintEmptySpace();
+            }
         }
 
 
@@ -46,11 +39,11 @@ namespace TheEisenhowerMatrix
                 string firstParametr = (listOfItems1[j]._type == null) ? "" : $"{j + 1}) {listOfItems1[j]}";
                 string secondParametr = (listOfItems2[j]._type == null) ? "" : $"{j + 1}) {listOfItems2[j]}";
 
-                Console.Write("| ");
-                AddTaskColored(listOfItems1, j, firstParametr);
-                Console.Write(" | ");
-                AddTaskColored(listOfItems2, j, secondParametr);
-                Console.WriteLine(" |");
+                Display.PrintHorizontalLine(LinePosition.Left);
+                CreateTask(listOfItems1, j, firstParametr);
+                Display.PrintHorizontalLine(LinePosition.Center);
+                CreateTask(listOfItems2, j, secondParametr);
+                Display.PrintHorizontalLine(LinePosition.Right);
             }
         }
 
@@ -63,42 +56,36 @@ namespace TheEisenhowerMatrix
             {
                 if (item.Key == key)
                 {
-                    foreach (var i in item.Value)
-                    {
-                        list.Add(i);
-                    }
+                    list = item.Value;
                 }
             }
-
             return list;
         }
 
 
-        public static void CreateAndDisplayMatrix(Dictionary<ItemType, List<Item>> dictionaryOfItems)
+        public static void CreateMatrix(Dictionary<ItemType, List<Item>> dictionaryOfItems)
         {
-            string line = "-----------------------------------------------------------------------------------------------------------";
-            Console.WriteLine(line);
-            Console.WriteLine(NewRow("A. important & urgent", "B. important & not urgent"));
-            Console.WriteLine(line);
-
             var importantAndUrgentItems = CreateListsOfItems(dictionaryOfItems, ItemType.Urgentimportant);
             var importantAndNotUrgentItems = CreateListsOfItems(dictionaryOfItems, ItemType.Noturgentimportant);
             var notImportantAndUrgentItems = CreateListsOfItems(dictionaryOfItems, ItemType.Urgentnotimportant);
             var notImportantAndNotUrgentItems = CreateListsOfItems(dictionaryOfItems, ItemType.Noturgentnotimportantitems);
 
-            importantAndUrgentItems.Sort();
-            importantAndNotUrgentItems.Sort();
-            notImportantAndUrgentItems.Sort();
-            notImportantAndNotUrgentItems.Sort();
-
+            Display.PrintLine();
+            Display.PrintHeader("A. important & urgent", "B. important & not urgent");
+            Display.PrintLine();
             CreateMatrixPart(importantAndUrgentItems, importantAndNotUrgentItems);
-            Console.WriteLine(line);
-            Console.WriteLine(NewRow("C. not important & urgent", "D. not important & not urgent"));
-            Console.WriteLine(line);
+            Display.PrintLine();
+            Display.PrintHeader("C. not important & urgent", "D. not important & not urgent");
+            Display.PrintLine();
             CreateMatrixPart(notImportantAndUrgentItems, notImportantAndNotUrgentItems);
-            Console.WriteLine(line);
-
+            Display.PrintLine();
         }
+    }
 
+    public enum LinePosition
+    {
+        Left,
+        Center,
+        Right
     }
 }
