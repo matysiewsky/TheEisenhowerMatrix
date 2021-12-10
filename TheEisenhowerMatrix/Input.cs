@@ -1,5 +1,6 @@
 #nullable enable
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
@@ -14,33 +15,31 @@ namespace TheEisenhowerMatrix
             while (mode == ProgramMode.NotSetYet)
             {
                 Display.ChooseMode();
-                if (Console.ReadKey().KeyChar == '1')
+
+                switch (Console.ReadKey().KeyChar)
                 {
-                    mode = ProgramMode.NewCSV;
-                }
-                else if (Console.ReadKey().KeyChar == '2')
-                {
-                    mode = ProgramMode.ExistingCSV;
-                }
-                else
-                {
-                    Display.WrongInput(0);
+                    case '1':
+                        mode = ProgramMode.NewCSV;
+                        break;
+                    case '2':
+                        mode = ProgramMode.ExistingCSV;
+                        break;
                 }
             }
 
             return mode;
         }
 
-        public static string ChooseFromSavedData(string[] savedData)
+        public static string ChooseFromSavedData(Dictionary<int, string> savedData)
         {
-            string choice = "";
+            int choice = -1;
             Display.FileChoiceMessage();
 
-            while (choice != "")
+            while (choice < 1)
             {
-                string userInput = Console.ReadLine();
+                Int32.TryParse(Console.ReadKey().KeyChar.ToString(), out int userInput);
 
-                if (Array.Exists(savedData, x => x == userInput))
+                if (userInput > 0 && savedData.ContainsKey(userInput))
                 {
                     choice = userInput;
                 }
@@ -50,12 +49,12 @@ namespace TheEisenhowerMatrix
                 }
             }
 
-            return choice;
+            return savedData[choice];
         }
 
         public static string ChooseNameForMatrix()
         {
-            string? choice = null;
+            string choice = null;
             Display.MatrixNameChoiceMessage();
 
             while (choice == null)
@@ -75,11 +74,11 @@ namespace TheEisenhowerMatrix
             return choice;
         }
 
-        public static Item CreateItem()
+        public static ToDoItem CreateItem()
         {
-            string? itemDescription = null;
-            ItemType? itemType = null;
-            DateTime? itemDeadline = null;
+            string itemDescription = null;
+            bool isImportant = false;
+            DateTime itemDeadline = DateTime.MaxValue;
 
             Display.ItemAddingMessages(1);
 
@@ -87,57 +86,52 @@ namespace TheEisenhowerMatrix
             {
                 string userInput = Console.ReadLine();
 
-                if (userInput.Length >= 5)
-                {
-                    itemDescription = userInput;
-                }
-                else
-                {
-                    Display.WrongInput(1);
-                }
+                if (userInput.Length >= 5) itemDescription = userInput;
+                else Display.WrongInput(1);
             }
 
             Display.ItemAddingMessages(2);
 
-            while (itemType == null)
+            while (isImportant == false)
             {
                 string userInput = Console.ReadLine();
 
-                if (int.TryParse(userInput, out int chosenType) && chosenType is >= 1 and <= 4)
+                if (int.TryParse(userInput, out int chosenImportance) && chosenImportance is >= 1 and <= 2)
                 {
-                    itemType = (ItemType) chosenType - 1;
-                    break;
+                    if (chosenImportance == 1) isImportant = true;
+                    else break;
                 }
 
-                Display.WrongInput(1);
+                else Display.WrongInput(1);
             }
 
             Display.ItemAddingMessages(3);
 
-            while (itemDeadline == null)
+            while (itemDeadline == DateTime.MaxValue)
             {
                 string userInput = Console.ReadLine();
 
-                if (DateTime.TryParseExact(userInput, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime chosenDeadline) &&
+                if (DateTime.TryParseExact(userInput, "dd/MM/yyyy", CultureInfo.InvariantCulture,
+                        DateTimeStyles.None, out DateTime chosenDeadline) &&
                     chosenDeadline >= DateTime.Now)
                 {
                     itemDeadline = chosenDeadline;
                 }
 
-                Display.WrongInput(1);
+                else Display.WrongInput(1);
             }
 
-            return new Item(itemDescription, itemType, itemDeadline);
+            return new ToDoItem(itemDescription, isImportant, itemDeadline);
 
         }
 
-        public static Tuple<int, int> MarkItemAs(ItemStatus status)
+        public static Tuple<int, int> MarkingAndRemovingCoords(int whichMessage)
         {
             Tuple<int, int>? choice = null;
 
             while (choice == null)
             {
-                Display.MarkingAsMessages((int) status);
+                Display.MarkingAndRemovingMessages(whichMessage);
                 string userInput = Console.ReadLine();
 
                 try
@@ -158,5 +152,6 @@ namespace TheEisenhowerMatrix
             }
             return choice;
         }
+
     }
 }
