@@ -44,9 +44,11 @@ namespace TheEisenhowerMatrix
             Status = status;
         }
 
-
+        // GetFormattedDeadline() method to set formated deadline
         public string GetFormattedDeadline() => $"{Deadline:dd-MM}";
 
+
+        // GetColor() method to select color of console depends on deadline
         public ConsoleColor GetColor()
         {
             if ((Deadline - DateTime.Today).Days <= 1)
@@ -63,6 +65,7 @@ namespace TheEisenhowerMatrix
         }
 
 
+        // ToString() method to get formated item
         public override string ToString()
         {
             return (Status == ItemStatus.Unmarked)
@@ -70,6 +73,7 @@ namespace TheEisenhowerMatrix
                 : (Status == ItemStatus.Marked) ? $"[x] {GetFormattedDeadline()} {Message}" : "";
         }
 
+        // CompareTo() method to make a system of Items sorting
         public int CompareTo(ToDoItem other)
         {
             if (Deadline > other.Deadline)

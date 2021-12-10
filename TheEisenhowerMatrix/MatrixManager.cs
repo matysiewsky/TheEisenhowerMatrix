@@ -3,8 +3,10 @@ using System.Collections.Generic;
 
 namespace TheEisenhowerMatrix
 {
+    // static class MatrixManager - to create a console table 
     public static class MatrixManager
     {
+        // CreateTask() method to Display colored ToDoItem
         private static void CreateTask(List<ToDoItem> listOfItems, int j, string task)
         {
             if (listOfItems[j].Message != null)
@@ -19,6 +21,8 @@ namespace TheEisenhowerMatrix
         }
 
 
+        // CreateMatrixPart() method takes two list of ToDoItems (which will be shown next to each other)
+        // and have a logic to create rows in matrix representing by each ToDoItem in that lists
         private static void CreateMatrixPart(List<ToDoItem> listOfItems1, List<ToDoItem> listOfItems2)
         {
             int list1Length = listOfItems1.Count;
@@ -51,6 +55,8 @@ namespace TheEisenhowerMatrix
         }
 
 
+        //CreateMatrix() method gets list of lists of ToDoItems and have a logic to display its in
+        //console matrix table
         public static void CreateMatrix(List<List<ToDoItem>> listOfQuarters)
         {
             var importantAndUrgentItems = listOfQuarters[0];
@@ -75,6 +81,8 @@ namespace TheEisenhowerMatrix
         }
     }
 
+
+    // enum represents variants of position of horizontal lines in printed matrix
     public enum LinePosition
     {
         Left,
