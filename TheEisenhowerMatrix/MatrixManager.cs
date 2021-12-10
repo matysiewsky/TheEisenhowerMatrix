@@ -7,7 +7,7 @@ namespace TheEisenhowerMatrix
     {
         private static void CreateTask(List<ToDoItem> listOfItems, int j, string task)
         {
-            if (listOfItems[j]._type != null)
+            if (listOfItems[j] != null)
             {
                 ConsoleColor color = listOfItems[j].GetColor();
                 Display.PrintColoredTask(color, task);
@@ -36,8 +36,8 @@ namespace TheEisenhowerMatrix
 
             for (int j = 0; j < longerListLength; j++)
             {
-                string firstParametr = (listOfItems1[j]._type == null) ? "" : $"{j + 1}) {listOfItems1[j]}";
-                string secondParametr = (listOfItems2[j]._type == null) ? "" : $"{j + 1}) {listOfItems2[j]}";
+                string firstParametr = (listOfItems1[j]== null) ? "" : $"{j + 1}) {listOfItems1[j]}";
+                string secondParametr = (listOfItems2[j] == null) ? "" : $"{j + 1}) {listOfItems2[j]}";
 
                 Display.PrintHorizontalLine(LinePosition.Left);
                 CreateTask(listOfItems1, j, firstParametr);
@@ -48,27 +48,27 @@ namespace TheEisenhowerMatrix
         }
 
 
-        private static List<ToDoItem> CreateListsOfItems(Dictionary<QuarterType, List<ToDoItem>> ToDoMatrix, QuarterType key)
-        {
-            var list = new List<ToDoItem>();
-
-            foreach (var item in ToDoMatrix)
-            {
-                if (item.Key == key)
-                {
-                    list = item.Value;
-                }
-            }
-            return list;
-        }
+        // private static List<ToDoItem> CreateListsOfItems(Dictionary<QuarterType, List<ToDoItem>> ToDoMatrix, QuarterType key)
+        // {
+        //     var list = new List<ToDoItem>();
+        //
+        //     foreach (var item in ToDoMatrix)
+        //     {
+        //         if (item.Key == key)
+        //         {
+        //             list = item.Value;
+        //         }
+        //     }
+        //     return list;
+        // }
 
 
         public static void CreateMatrix(Dictionary<QuarterType, List<ToDoItem>> dictionaryOfItems)
         {
-            var importantAndUrgentItems = CreateListsOfItems(dictionaryOfItems, QuarterType.Urgentimportant);
-            var importantAndNotUrgentItems = CreateListsOfItems(dictionaryOfItems, QuarterType.Noturgentimportant);
-            var notImportantAndUrgentItems = CreateListsOfItems(dictionaryOfItems, QuarterType.Urgentnotimportant);
-            var notImportantAndNotUrgentItems = CreateListsOfItems(dictionaryOfItems, QuarterType.Noturgentnotimportant);
+            var importantAndUrgentItems = dictionaryOfItems[QuarterType.Urgentimportant];
+            var importantAndNotUrgentItems = dictionaryOfItems[QuarterType.Noturgentimportant];
+            var notImportantAndUrgentItems = dictionaryOfItems[QuarterType.Urgentnotimportant];
+            var notImportantAndNotUrgentItems = dictionaryOfItems[QuarterType.Noturgentnotimportant];
 
             Display.PrintLine();
             Display.PrintHeader("A. important & urgent", "B. important & not urgent");

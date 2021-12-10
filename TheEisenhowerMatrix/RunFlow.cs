@@ -42,7 +42,7 @@ namespace TheEisenhowerMatrix
                 Dictionary<QuarterType, List<ToDoItem>> matrixToPrint = currentUserToDoMatrix.CreateDictionaryOfItems();
 
                 Display.MatrixNamePrint(currentUserToDoMatrix);
-                MatrixManager.CreateAndDisplayMatrix(matrixToPrint);
+                MatrixManager.CreateMatrix(matrixToPrint);
                 Display.PrintPossibleOperationsOnMatrix();
 
                 switch (Console.ReadKey().KeyChar)
