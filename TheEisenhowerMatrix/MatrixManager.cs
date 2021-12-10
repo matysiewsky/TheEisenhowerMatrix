@@ -7,7 +7,7 @@ namespace TheEisenhowerMatrix
     {
         private static void CreateTask(List<ToDoItem> listOfItems, int j, string task)
         {
-            if (listOfItems[j] != null)
+            if (listOfItems[j].Message != null)
             {
                 ConsoleColor color = listOfItems[j].GetColor();
                 Display.PrintColoredTask(color, task);
