@@ -113,7 +113,7 @@ namespace TheEisenhowerMatrix
 
                 if (DateTime.TryParseExact(userInput, "dd/MM/yyyy", CultureInfo.InvariantCulture,
                         DateTimeStyles.None, out DateTime chosenDeadline) &&
-                    chosenDeadline >= DateTime.Now)
+                    chosenDeadline >= DateTime.Now.Date)
                 {
                     itemDeadline = chosenDeadline;
                 }
