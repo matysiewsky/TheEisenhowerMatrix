@@ -4,6 +4,7 @@ using System.Threading;
 
 namespace TheEisenhowerMatrix
 {
+
     public static class Display
     {
 
@@ -63,7 +64,7 @@ Please choose by typing 1 or 2:
             Thread.Sleep(seconds * 1000);
         }
 
-        public static void ShowSavedData(string[] savedData)
+        public static void ShowSavedData(Dictionary<int, string> savedData)
         {
             Console.WriteLine(String.Join(Environment.NewLine, savedData));
         }
@@ -84,12 +85,10 @@ Please choose by typing 1 or 2:
             {
                 "Please provide To Do Item description, at least 5 chars.",
 
-                @"Please choose one of the following levels of urgency & importance:
+                @"Please choose one of the following levels of importance:
 Type:
-1 for Urgent & important,
-2 for Not urgent, but important,
-3 for Urgent, but not important,
-4 for Not urgent & not important",
+1 for Important,
+2 for Not Important.",
 
                 @"Please provide a deadline for the To Do Item formatted in dd/mm/yyyy. 
 If the item doesn't have one type: 'Nope'",
@@ -98,9 +97,9 @@ If the item doesn't have one type: 'Nope'",
             Console.WriteLine(messages[whichMessage - 1]);
         }
 
-        public static void MatrixNamePrint(Matrix currentUserMatrix)
+        public static void MatrixNamePrint(ToDoMatrix currentUserToDoMatrix)
         {
-            Console.WriteLine($"The Eisenhower Matrix, name: {currentUserMatrix.Name}");
+            Console.WriteLine($"The Eisenhower Matrix, name: {currentUserToDoMatrix.Name}");
         }
 
         public static void PrintPossibleOperationsOnMatrix()
@@ -114,15 +113,17 @@ If the item doesn't have one type: 'Nope'",
 9 for quitting The App.");
         }
 
-        public static void MarkingAsMessages(int whichMessage)
+        public static void MarkingAndRemovingMessages(int whichMessage)
         {
             string[] messages =
             {
-                "DONE: Please assign the level of urgency & importance (1-4) and the position of the item in the list. (ex. 1-10)",
-                "UNDONE: Please assign the level of urgency & importance (1-4) and the position of the item in the list. (ex. 1-10)"
+                "DONE: ",
+                "UNDONE: ",
+                "REMOVE: ",
+                "Please assign the level of urgency & importance (1-4) and the position of the item in the list. (ex. 1-10)"
             };
 
-            Console.WriteLine(messages[whichMessage]);
+            Console.WriteLine(messages[whichMessage] + messages[3]);
         }
     }
 }
