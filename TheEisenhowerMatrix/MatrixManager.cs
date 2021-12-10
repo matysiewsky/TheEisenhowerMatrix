@@ -36,8 +36,8 @@ namespace TheEisenhowerMatrix
 
             for (int j = 0; j < longerListLength; j++)
             {
-                string firstParametr = (listOfItems1[j]== null) ? "" : $"{j + 1}) {listOfItems1[j]}";
-                string secondParametr = (listOfItems2[j] == null) ? "" : $"{j + 1}) {listOfItems2[j]}";
+                string firstParametr = (listOfItems1[j].Message == null) ? "" : $"{j + 1}) {listOfItems1[j]}";
+                string secondParametr = (listOfItems2[j].Message == null) ? "" : $"{j + 1}) {listOfItems2[j]}";
 
                 Display.PrintHorizontalLine(LinePosition.Left);
                 CreateTask(listOfItems1, j, firstParametr);
@@ -69,6 +69,11 @@ namespace TheEisenhowerMatrix
             var importantAndNotUrgentItems = dictionaryOfItems[QuarterType.Noturgentimportant];
             var notImportantAndUrgentItems = dictionaryOfItems[QuarterType.Urgentnotimportant];
             var notImportantAndNotUrgentItems = dictionaryOfItems[QuarterType.Noturgentnotimportant];
+
+            importantAndUrgentItems.Sort();
+            importantAndNotUrgentItems.Sort();
+            notImportantAndUrgentItems.Sort();
+            notImportantAndNotUrgentItems.Sort();
 
             Display.PrintLine();
             Display.PrintHeader("A. important & urgent", "B. important & not urgent");
