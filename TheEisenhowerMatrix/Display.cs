@@ -7,6 +7,7 @@ namespace TheEisenhowerMatrix
 
     public static class Display
     {
+        // DISPLAY LAYER OF THE PROGRAM - printing, console colors, all the writelines handled here.
 
         public static void DisplayHelloMessage()
         {
@@ -160,9 +161,10 @@ If the item doesn't have one type: 'Nope'",
 
         }
 
-        public static void PirintEmptySpace()
+        public static void PrintEmptySpace()
         {
             Console.Write("{0, -50}", "");
         }
+        //
     }
 }

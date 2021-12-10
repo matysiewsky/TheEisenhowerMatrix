@@ -5,53 +5,44 @@ namespace TheEisenhowerMatrix
 {
     public class ToDoItem
     {
-        public string Message { get; private set;}
+        public string Message { get; }
         public bool IsImportant { get; }
-        public DateTime Deadline { get; private set; }
+        public DateTime Deadline { get; }
         public ItemStatus Status { get; private set; }
 
 
+        // 3 different constructors:
+
+        // 1) for creating empty ToDoItems needed for proper display:
+        public ToDoItem()
+        {
+            Status = ItemStatus.Empty;
+        }
+
+        // 2) for creating item on running Matrix:
         public ToDoItem(string message, bool isImportant, DateTime deadline)
         {
             IsImportant = isImportant;
             Message = message;
-            // _type = type;
             Deadline = deadline;
             Status = ItemStatus.Unmarked;
         }
 
-        public ToDoItem()
-        {
-
-        }
-
+        // 3) for creating items imported from .csv file:
         public ToDoItem(string message, bool isImportant, DateTime deadline, ItemStatus status)
         {
             IsImportant = isImportant;
             Message = message;
-            // _type = type;
             Deadline = deadline;
             Status = status;
         }
+
+        // SetStatus() method for: marking as done, undone.
         public void SetStatus(ItemStatus status)
         {
             Status = status;
         }
 
-        public void MarkAsMarked()
-        {
-            Status = ItemStatus.Marked;
-        }
-
-        public void MarkAsUnmarked()
-        {
-            Status = ItemStatus.Unmarked;
-        }
-
-        public void MarkAsArchived()
-        {
-            Status = ItemStatus.Archived;
-        }
 
         public string GetFormattedDeadline() => $"{Deadline:dd-MM}";
 
@@ -62,51 +53,43 @@ namespace TheEisenhowerMatrix
                 return ConsoleColor.Red;
             }
 
-            if((Deadline - DateTime.Today).Days <= 3)
+            if ((Deadline - DateTime.Today).Days <= 3)
             {
                 return ConsoleColor.DarkYellow;
             }
+
             return ConsoleColor.Green;
         }
 
 
         public override string ToString()
         {
-            return (Status == ItemStatus.Unmarked) ? $"[] {GetFormattedDeadline()} {Message}":
-                $"[x] {GetFormattedDeadline()} {Message}";
+            return (Status == ItemStatus.Unmarked)
+                ? $"[] {GetFormattedDeadline()} {Message}"
+                : (Status == ItemStatus.Marked) ? $"[x] {GetFormattedDeadline()} {Message}" : "";
         }
 
         public int CompareTo(ToDoItem other)
         {
-            if(Deadline > other.Deadline)
+            if (Deadline > other.Deadline)
             {
                 return 1;
             }
 
-            if(Deadline < other.Deadline)
+            if (Deadline < other.Deadline)
             {
                 return -1;
             }
+
             return 0;
         }
     }
 
     public enum ItemStatus
     {
+        // Two possible statuses of an item.
         Unmarked,
         Marked,
-        Archived
-    }
-
-    public sealed class ToDoItemMap : ClassMap<ToDoItem>
-    {
-        public void ItemMap()
-        {
-            Map(m => m.Message).Name("Message");
-            Map(m => m.IsImportant).Name("IsImportant");
-            Map(m => m.Deadline).Name("Deadline");
-            Map(m => m.Status).Name("Status");
-
-        }
+        Empty
     }
 }

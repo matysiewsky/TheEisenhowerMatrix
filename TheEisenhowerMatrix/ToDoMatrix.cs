@@ -56,17 +56,13 @@ namespace TheEisenhowerMatrix
             }
         }
 
-        public Dictionary<QuarterType, List<ToDoItem>> CreateDictionaryOfItems()
-        {
-
-            return new()
+        public List<List<ToDoItem>> CreateListOfListsOfItems() => new()
             {
-                {QuarterType.Urgentimportant, ToDoQuarters[0].GetItemsFromQuarter()},
-                {QuarterType.Noturgentimportant, ToDoQuarters[1].GetItemsFromQuarter()},
-                {QuarterType.Urgentnotimportant, ToDoQuarters[2].GetItemsFromQuarter()},
-                {QuarterType.Noturgentnotimportant, ToDoQuarters[3].GetItemsFromQuarter()}
+                ToDoQuarters[0].GetItemsFromQuarter(),
+                ToDoQuarters[1].GetItemsFromQuarter(),
+                ToDoQuarters[2].GetItemsFromQuarter(),
+                ToDoQuarters[3].GetItemsFromQuarter()
             };
-        }
 
         public List<ToDoItem> PrepareItemsForSaving()
         {

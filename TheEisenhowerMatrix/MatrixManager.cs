@@ -14,7 +14,7 @@ namespace TheEisenhowerMatrix
             }
             else
             {
-                Display.PirintEmptySpace();
+                Display.PrintEmptySpace();
             }
         }
 
@@ -36,7 +36,7 @@ namespace TheEisenhowerMatrix
 
             for (int j = 0; j < longerListLength; j++)
             {
-                string firstParametr = (listOfItems1[j]== null) ? "" : $"{j + 1}) {listOfItems1[j]}";
+                string firstParametr = (listOfItems1[j] == null) ? "" : $"{j + 1}) {listOfItems1[j]}";
                 string secondParametr = (listOfItems2[j] == null) ? "" : $"{j + 1}) {listOfItems2[j]}";
 
                 Display.PrintHorizontalLine(LinePosition.Left);
@@ -63,12 +63,12 @@ namespace TheEisenhowerMatrix
         // }
 
 
-        public static void CreateMatrix(Dictionary<QuarterType, List<ToDoItem>> dictionaryOfItems)
+        public static void CreateMatrix(List<List<ToDoItem>> listOfQuartersLists)
         {
-            var importantAndUrgentItems = dictionaryOfItems[QuarterType.Urgentimportant];
-            var importantAndNotUrgentItems = dictionaryOfItems[QuarterType.Noturgentimportant];
-            var notImportantAndUrgentItems = dictionaryOfItems[QuarterType.Urgentnotimportant];
-            var notImportantAndNotUrgentItems = dictionaryOfItems[QuarterType.Noturgentnotimportant];
+            var importantAndUrgentItems = listOfQuartersLists[0];
+            var importantAndNotUrgentItems = listOfQuartersLists[1];
+            var notImportantAndUrgentItems = listOfQuartersLists[2];
+            var notImportantAndNotUrgentItems = listOfQuartersLists[3];
 
             Display.PrintLine();
             Display.PrintHeader("A. important & urgent", "B. important & not urgent");
