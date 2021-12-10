@@ -22,7 +22,7 @@ namespace TheEisenhowerMatrix
         {
             List<ToDoItem> records = new();
 
-            using StreamReader FileReader = new($"{PathToProject}/data/{filename}");
+            using StreamReader FileReader = new($"{PathToProject}/data/{filename}.csv");
             using (CsvReader CSVReader = new(FileReader, CultureInfo.CurrentCulture))
             {
                 CSVReader.Read();

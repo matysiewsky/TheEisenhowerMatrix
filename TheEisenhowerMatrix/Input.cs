@@ -49,7 +49,7 @@ namespace TheEisenhowerMatrix
                 }
             }
 
-            return savedData[choice];
+            return savedData[choice].Substring(0, savedData[choice].Length - 4);
         }
 
         public static string ChooseNameForMatrix()
