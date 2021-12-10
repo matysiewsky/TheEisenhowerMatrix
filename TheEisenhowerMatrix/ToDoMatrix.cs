@@ -3,25 +3,25 @@ using System.Linq;
 
 namespace TheEisenhowerMatrix
 {
-    public class Matrix
+    public class ToDoMatrix
     {
 
         public string Name;
-        private List<Item> _items = new();
+        private List<ToDoItem> _items = new();
 
-        public Matrix(string matrixName)
+        public ToDoMatrix(string matrixName)
         {
             Name = matrixName;
         }
 
-        public void AddItem(Item item)
+        public void AddItem(ToDoItem toDoItem)
         {
-            _items.Add(item);
+            _items.Add(toDoItem);
         }
 
         public void ArchiveAllDoneItems()
         {
-            foreach (Item item in _items.ToList())
+            foreach (ToDoItem item in _items.ToList())
             {
                 if (item.Status != ItemStatus.Unmarked)
                 {
@@ -35,9 +35,9 @@ namespace TheEisenhowerMatrix
 
         }
 
-        public void RemoveAnItem(Item item)
+        public void RemoveAnItem(ToDoItem toDoItem)
         {
-            _items.Remove(item);
+            _items.Remove(toDoItem);
         }
 
         // public override string ToString()
@@ -46,10 +46,10 @@ namespace TheEisenhowerMatrix
         // };
 
 
-        public Dictionary<ItemType, List<Item>> CreateDictionaryOfItems()
+        public Dictionary<ItemType, List<ToDoItem>> CreateDictionaryOfItems()
         {
 
-            var dictionaryOfItems = new Dictionary<ItemType, List<Item>>()
+            var dictionaryOfItems = new Dictionary<ItemType, List<ToDoItem>>()
             {
                 { ItemType.Urgentimportant, SortItems(ItemType.Urgentimportant) },
                 { ItemType.Noturgentimportant, SortItems(ItemType.Noturgentimportant) },
@@ -61,9 +61,9 @@ namespace TheEisenhowerMatrix
         }
 
 
-        private List<Item> SortItems(ItemType itemType)
+        private List<ToDoItem> SortItems(ItemType itemType)
         {
-            var list = new List<Item>();
+            var list = new List<ToDoItem>();
             
             foreach (var item in this._items)
             {

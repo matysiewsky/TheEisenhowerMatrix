@@ -2,7 +2,7 @@ using System;
 
 namespace TheEisenhowerMatrix
 {
-    public class Item : IItem, IComparable<Item>
+    public class ToDoItem : IItem, IComparable<ToDoItem>
     {
         public ItemType? _type { get; private set; }
         private DateTime? _deadline;
@@ -13,7 +13,7 @@ namespace TheEisenhowerMatrix
             get; private set;
         }
 
-        public Item(string? message, ItemType? type, DateTime? deadline)
+        public ToDoItem(string? message, ItemType? type, DateTime? deadline)
         {
             _message = message;
             _type = type;
@@ -21,7 +21,7 @@ namespace TheEisenhowerMatrix
             Status = ItemStatus.Unmarked;
         }
 
-        public Item()
+        public ToDoItem()
         {
         }
 
@@ -68,7 +68,7 @@ namespace TheEisenhowerMatrix
                 $"[x] {this.GetFormattedDeadline()} {_message}";
         }
 
-        public int CompareTo(Item other)
+        public int CompareTo(ToDoItem other)
         {
             if(this._deadline > other._deadline)
             {

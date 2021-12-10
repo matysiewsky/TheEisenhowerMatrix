@@ -75,7 +75,7 @@ namespace TheEisenhowerMatrix
             return choice;
         }
 
-        public static Item CreateItem()
+        public static ToDoItem CreateItem()
         {
             string? itemDescription = null;
             ItemType? itemType = null;
@@ -127,7 +127,7 @@ namespace TheEisenhowerMatrix
                 Display.WrongInput(1);
             }
 
-            return new Item(itemDescription, itemType, itemDeadline);
+            return new ToDoItem(itemDescription, itemType, itemDeadline);
 
         }
 

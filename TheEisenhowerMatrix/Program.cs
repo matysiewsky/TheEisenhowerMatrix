@@ -12,7 +12,7 @@ namespace TheEisenhowerMatrix
             // Display.ClearDisplay();
             ProgramMode modeSet = Input.ChooseMode();
 
-            Matrix currentUserMatrix;
+            ToDoMatrix currentUserToDoMatrix;
 
             if (modeSet == ProgramMode.ExistingCSV)
             {
@@ -20,14 +20,14 @@ namespace TheEisenhowerMatrix
                 string[] savedData = DataManager.GetSavedData();
                 string fileName = Input.ChooseFromSavedData(savedData);
 
-                currentUserMatrix = DataManager.ImportUserData(fileName);
+                currentUserToDoMatrix = DataManager.ImportUserData(fileName);
             }
 
             else
             {
                 string nameChoice = Input.ChooseNameForMatrix();
 
-                currentUserMatrix = new(nameChoice);
+                currentUserToDoMatrix = new(nameChoice);
             }
 
             bool MatrixRunning = true;
@@ -35,17 +35,17 @@ namespace TheEisenhowerMatrix
             while (MatrixRunning)
             {
                 Display.ClearDisplay();
-                Dictionary<ItemType, List<Item>> matrixToPrint = currentUserMatrix.CreateDictionaryOfItems();
+                Dictionary<ItemType, List<ToDoItem>> matrixToPrint = currentUserToDoMatrix.CreateDictionaryOfItems();
 
-                Display.MatrixNamePrint(currentUserMatrix);
+                Display.MatrixNamePrint(currentUserToDoMatrix);
                 MatrixManager.CreateMatrix(matrixToPrint);
                 Display.PrintPossibleOperationsOnMatrix();
 
                 switch (Console.ReadKey().KeyChar)
                 {
                     case '1':
-                        Item newItem = Input.CreateItem();
-                        currentUserMatrix.AddItem(newItem);
+                        ToDoItem newToDoItem = Input.CreateItem();
+                        currentUserToDoMatrix.AddItem(newToDoItem);
                         break;
 
                     case '2':
@@ -53,16 +53,16 @@ namespace TheEisenhowerMatrix
 
                         try
                         {
-                            Item itemToMarkAsDone = matrixToPrint[(ItemType) coordinatesToMarkAsDone.Item1][coordinatesToMarkAsDone.Item2];
+                            ToDoItem toDoItemToMarkAsDone = matrixToPrint[(ItemType) coordinatesToMarkAsDone.Item1][coordinatesToMarkAsDone.Item2];
 
-                            if (itemToMarkAsDone.Status == ItemStatus.Marked)
+                            if (toDoItemToMarkAsDone.Status == ItemStatus.Marked)
                             {
                                 Display.WrongInput(3);
                                 Display.FreezeDisplay(2);
                             }
                             else
                             {
-                                itemToMarkAsDone.SetStatus(ItemStatus.Marked);
+                                toDoItemToMarkAsDone.SetStatus(ItemStatus.Marked);
                             }
                         }
                         catch
@@ -76,16 +76,16 @@ namespace TheEisenhowerMatrix
 
                         try
                         {
-                            Item itemToMarkAsUndone = matrixToPrint[(ItemType) coordinatesToMarkAsUndone.Item1][coordinatesToMarkAsUndone.Item2];
+                            ToDoItem toDoItemToMarkAsUndone = matrixToPrint[(ItemType) coordinatesToMarkAsUndone.Item1][coordinatesToMarkAsUndone.Item2];
 
-                            if (itemToMarkAsUndone.Status == ItemStatus.Unmarked)
+                            if (toDoItemToMarkAsUndone.Status == ItemStatus.Unmarked)
                             {
                                 Display.WrongInput(4);
                                 Display.FreezeDisplay(2);
                             }
                             else
                             {
-                                itemToMarkAsUndone.SetStatus(ItemStatus.Unmarked);
+                                toDoItemToMarkAsUndone.SetStatus(ItemStatus.Unmarked);
                             }
                         }
                         catch

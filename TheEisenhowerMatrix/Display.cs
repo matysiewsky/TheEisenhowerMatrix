@@ -98,9 +98,9 @@ If the item doesn't have one type: 'Nope'",
             Console.WriteLine(messages[whichMessage - 1]);
         }
 
-        public static void MatrixNamePrint(Matrix currentUserMatrix)
+        public static void MatrixNamePrint(ToDoMatrix currentUserToDoMatrix)
         {
-            Console.WriteLine($"The Eisenhower Matrix, name: {currentUserMatrix.Name}");
+            Console.WriteLine($"The Eisenhower Matrix, name: {currentUserToDoMatrix.Name}");
         }
 
         public static void PrintPossibleOperationsOnMatrix()

@@ -5,7 +5,7 @@ namespace TheEisenhowerMatrix
 {
     public static class MatrixManager
     {
-        private static void CreateTask(List<Item> listOfItems, int j, string task)
+        private static void CreateTask(List<ToDoItem> listOfItems, int j, string task)
         {
             if (listOfItems[j]._type != null)
             {
@@ -19,19 +19,19 @@ namespace TheEisenhowerMatrix
         }
 
 
-        private static void CreateMatrixPart(List<Item> listOfItems1, List<Item> listOfItems2)
+        private static void CreateMatrixPart(List<ToDoItem> listOfItems1, List<ToDoItem> listOfItems2)
         {
             int list1Length = listOfItems1.Count;
             int list2Length = listOfItems2.Count;
             
-            List<Item> shorterList = (list1Length < list2Length) ? listOfItems1: listOfItems2;
+            List<ToDoItem> shorterList = (list1Length < list2Length) ? listOfItems1: listOfItems2;
             int longerListLength = (list1Length < list2Length) ? list2Length : list1Length;
 
             int difference = Math.Abs(list1Length - list2Length);
 
             for (int l = 0; l < difference; l++)
             {
-                shorterList.Add(new Item());
+                shorterList.Add(new ToDoItem());
             }
 
             for (int j = 0; j < longerListLength; j++)
@@ -48,9 +48,9 @@ namespace TheEisenhowerMatrix
         }
 
 
-        private static List<Item> CreateListsOfItems(Dictionary<ItemType, List<Item>> ToDoMatrix, ItemType key)
+        private static List<ToDoItem> CreateListsOfItems(Dictionary<ItemType, List<ToDoItem>> ToDoMatrix, ItemType key)
         {
-            var list = new List<Item>();
+            var list = new List<ToDoItem>();
 
             foreach (var item in ToDoMatrix)
             {
@@ -63,7 +63,7 @@ namespace TheEisenhowerMatrix
         }
 
 
-        public static void CreateMatrix(Dictionary<ItemType, List<Item>> dictionaryOfItems)
+        public static void CreateMatrix(Dictionary<ItemType, List<ToDoItem>> dictionaryOfItems)
         {
             var importantAndUrgentItems = CreateListsOfItems(dictionaryOfItems, ItemType.Urgentimportant);
             var importantAndNotUrgentItems = CreateListsOfItems(dictionaryOfItems, ItemType.Noturgentimportant);

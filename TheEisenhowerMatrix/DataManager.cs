@@ -9,22 +9,22 @@ namespace TheEisenhowerMatrix
 {
     public static class DataManager
     {
-        public static void SaveToCSV(Matrix matrixName, List<Item> itemsToSave)
+        public static void SaveToCSV(ToDoMatrix toDoMatrixName, List<ToDoItem> itemsToSave)
         {
-            using StreamWriter FileWriter = new($"data/{matrixName}");
+            using StreamWriter FileWriter = new($"data/{toDoMatrixName}");
             using (CsvWriter CSVWriter = new(FileWriter, CultureInfo.CurrentCulture))
             {
                 CSVWriter.WriteRecords(itemsToSave);
             }
         }
-        public static List<Item> ReadFromCSV(string filename)
+        public static List<ToDoItem> ReadFromCSV(string filename)
         {
-            List<Item> records;
+            List<ToDoItem> records;
 
             using StreamReader FileReader = new($"data/{filename}");
             using (CsvReader CSVReader = new(FileReader, CultureInfo.InvariantCulture))
             {
-                records = CSVReader.GetRecords<Item>().ToList();
+                records = CSVReader.GetRecords<ToDoItem>().ToList();
             }
 
             return records;
@@ -37,18 +37,18 @@ namespace TheEisenhowerMatrix
             return savedData;
         }
 
-        public static Matrix ImportUserData(string filename)
+        public static ToDoMatrix ImportUserData(string filename)
         {
-            List<Item> itemsToImport = ReadFromCSV(filename);
+            List<ToDoItem> itemsToImport = ReadFromCSV(filename);
 
-            Matrix importedMatrix = new(filename);
+            ToDoMatrix importedToDoMatrix = new(filename);
 
-            foreach (Item item in itemsToImport)
+            foreach (ToDoItem item in itemsToImport)
             {
-                importedMatrix.AddItem(item);
+                importedToDoMatrix.AddItem(item);
             }
 
-            return importedMatrix;
+            return importedToDoMatrix;
         }
     }
 }
