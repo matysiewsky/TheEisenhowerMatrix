@@ -5,84 +5,87 @@ namespace TheEisenhowerMatrix
 {
     public static class MatrixManager
     {
-
-        private static string NewRow(string firstParametr, string secondParametr)
+        private static void CreateTask(List<ToDoItem> listOfItems, int j, string task)
         {
-            string row = String.Format("| {0, -50} | {1, -50} |", firstParametr, secondParametr);
-            row += Environment.NewLine;
-            return row;
+            if (listOfItems[j]._type != null)
+            {
+                ConsoleColor color = listOfItems[j].GetColor();
+                Display.PrintColoredTask(color, task);
+            }
+            else
+            {
+                Display.PirintEmptySpace();
+            }
         }
 
 
-        private static void CreateMatrixPart(List<string> list1, List<string> list2, System.Text.StringBuilder matrix, string line)
+        private static void CreateMatrixPart(List<ToDoItem> listOfItems1, List<ToDoItem> listOfItems2)
         {
-            int list1Length = list1.Count;
-            int list2Length = list2.Count;
+            int list1Length = listOfItems1.Count;
+            int list2Length = listOfItems2.Count;
             
-            List<string> shorterList = (list1Length < list2Length) ? list1: list2;
+            List<ToDoItem> shorterList = (list1Length < list2Length) ? listOfItems1: listOfItems2;
             int longerListLength = (list1Length < list2Length) ? list2Length : list1Length;
 
             int difference = Math.Abs(list1Length - list2Length);
 
             for (int l = 0; l < difference; l++)
             {
-                shorterList.Add("");
+                shorterList.Add(new ToDoItem());
             }
 
             for (int j = 0; j < longerListLength; j++)
             {
-                string firstParametr = (list1[j] == "") ? "" : $"{j + 1}) {list1[j]}";
-                string secondParametr = (list2[j] == "") ? "" : $"{j + 1}) {list2[j]}";
+                string firstParametr = (listOfItems1[j]._type == null) ? "" : $"{j + 1}) {listOfItems1[j]}";
+                string secondParametr = (listOfItems2[j]._type == null) ? "" : $"{j + 1}) {listOfItems2[j]}";
 
-                matrix.Append(NewRow(firstParametr, secondParametr));
+                Display.PrintHorizontalLine(LinePosition.Left);
+                CreateTask(listOfItems1, j, firstParametr);
+                Display.PrintHorizontalLine(LinePosition.Center);
+                CreateTask(listOfItems2, j, secondParametr);
+                Display.PrintHorizontalLine(LinePosition.Right);
             }
-
-            matrix.Append(line);
         }
 
 
-        private static List<string> CreateListsOfElements(Dictionary<QuarterType, List<ToDoItem>> ToDoMatrix, QuarterType key)
+        private static List<ToDoItem> CreateListsOfItems(Dictionary<QuarterType, List<ToDoItem>> ToDoMatrix, QuarterType key)
         {
-            var list = new List<string>();
+            var list = new List<ToDoItem>();
 
             foreach (var item in ToDoMatrix)
             {
                 if (item.Key == key)
                 {
-                    foreach (var i in item.Value)
-                    {
-                        list.Add(Convert.ToString(i));
-                    }
+                    list = item.Value;
                 }
             }
-
             return list;
         }
 
 
-        public static void CreateAndDisplayMatrix(Dictionary<QuarterType, List<ToDoItem>> dictionaryOfItems)
+        public static void CreateMatrix(Dictionary<QuarterType, List<ToDoItem>> dictionaryOfItems)
         {
-            System.Text.StringBuilder matrix = new System.Text.StringBuilder();
-            string newLine = Environment.NewLine;
-            string line = "-----------------------------------------------------------------------------------------------------------" + Environment.NewLine;
+            var importantAndUrgentItems = CreateListsOfItems(dictionaryOfItems, QuarterType.Urgentimportant);
+            var importantAndNotUrgentItems = CreateListsOfItems(dictionaryOfItems, QuarterType.Noturgentimportant);
+            var notImportantAndUrgentItems = CreateListsOfItems(dictionaryOfItems, QuarterType.Urgentnotimportant);
+            var notImportantAndNotUrgentItems = CreateListsOfItems(dictionaryOfItems, QuarterType.Noturgentnotimportant);
 
-            matrix.Append(line);
-            matrix.Append(NewRow("A. important & urgent", "B. important & not urgent"));
-            matrix.Append(line);
-
-            var importantAndUrgent = CreateListsOfElements(dictionaryOfItems, QuarterType.Urgentimportant);
-            var importantAndNotUrgent = CreateListsOfElements(dictionaryOfItems, QuarterType.Noturgentimportant);
-            var notImportantAndUrgent = CreateListsOfElements(dictionaryOfItems, QuarterType.Urgentnotimportant);
-            var notImportantAndNotUrgent = CreateListsOfElements(dictionaryOfItems, QuarterType.Noturgentnotimportant);
-
-            CreateMatrixPart(importantAndUrgent, importantAndNotUrgent, matrix, line);
-            matrix.Append(NewRow("C. not important & urgent", "D. not important & not urgent"));
-            matrix.Append(line);
-            CreateMatrixPart(notImportantAndUrgent, notImportantAndNotUrgent, matrix, line);
-
-            Console.WriteLine(matrix);
-
+            Display.PrintLine();
+            Display.PrintHeader("A. important & urgent", "B. important & not urgent");
+            Display.PrintLine();
+            CreateMatrixPart(importantAndUrgentItems, importantAndNotUrgentItems);
+            Display.PrintLine();
+            Display.PrintHeader("C. not important & urgent", "D. not important & not urgent");
+            Display.PrintLine();
+            CreateMatrixPart(notImportantAndUrgentItems, notImportantAndNotUrgentItems);
+            Display.PrintLine();
         }
+    }
 
+    public enum LinePosition
+    {
+        Left,
+        Center,
+        Right
     }
 }
