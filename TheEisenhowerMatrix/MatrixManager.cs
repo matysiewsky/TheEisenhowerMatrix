@@ -41,7 +41,7 @@ namespace TheEisenhowerMatrix
         }
 
 
-        private static List<string> CreateListsOfElements(Dictionary<ItemType, List<Item>> ToDoMatrix, ItemType key)
+        private static List<string> CreateListsOfElements(Dictionary<QuarterType, List<ToDoItem>> ToDoMatrix, QuarterType key)
         {
             var list = new List<string>();
 
@@ -60,7 +60,7 @@ namespace TheEisenhowerMatrix
         }
 
 
-        public static void CreateAndDisplayMatrix(Dictionary<ItemType, List<Item>> dictionaryOfItems)
+        public static void CreateAndDisplayMatrix(Dictionary<QuarterType, List<ToDoItem>> dictionaryOfItems)
         {
             System.Text.StringBuilder matrix = new System.Text.StringBuilder();
             string newLine = Environment.NewLine;
@@ -70,10 +70,10 @@ namespace TheEisenhowerMatrix
             matrix.Append(NewRow("A. important & urgent", "B. important & not urgent"));
             matrix.Append(line);
 
-            var importantAndUrgent = CreateListsOfElements(dictionaryOfItems, ItemType.Urgentimportant);
-            var importantAndNotUrgent = CreateListsOfElements(dictionaryOfItems, ItemType.Noturgentimportant);
-            var notImportantAndUrgent = CreateListsOfElements(dictionaryOfItems, ItemType.Urgentnotimportant);
-            var notImportantAndNotUrgent = CreateListsOfElements(dictionaryOfItems, ItemType.Noturgentnotimportantitems);
+            var importantAndUrgent = CreateListsOfElements(dictionaryOfItems, QuarterType.Urgentimportant);
+            var importantAndNotUrgent = CreateListsOfElements(dictionaryOfItems, QuarterType.Noturgentimportant);
+            var notImportantAndUrgent = CreateListsOfElements(dictionaryOfItems, QuarterType.Urgentnotimportant);
+            var notImportantAndNotUrgent = CreateListsOfElements(dictionaryOfItems, QuarterType.Noturgentnotimportant);
 
             CreateMatrixPart(importantAndUrgent, importantAndNotUrgent, matrix, line);
             matrix.Append(NewRow("C. not important & urgent", "D. not important & not urgent"));
