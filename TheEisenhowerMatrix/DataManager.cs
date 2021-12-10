@@ -1,38 +1,56 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
 using CsvHelper;
 
 namespace TheEisenhowerMatrix
 {
     public static class DataManager
     {
-        public static void SaveToCSV(ToDoMatrix toDoMatrixName, List<ToDoItem> itemsToSave)
+        private static readonly string PathToProject = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
+
+        public static void SaveToCSV(ToDoMatrix toDoMatrix)
         {
-            using StreamWriter FileWriter = new($"data/{toDoMatrixName}");
+            using StreamWriter FileWriter = new($"{PathToProject}/data/{toDoMatrix.Name}.csv");
             using (CsvWriter CSVWriter = new(FileWriter, CultureInfo.CurrentCulture))
             {
-                CSVWriter.WriteRecords(itemsToSave);
+                CSVWriter.WriteRecords(toDoMatrix.PrepareItemsForSaving());
             }
         }
         public static List<ToDoItem> ReadFromCSV(string filename)
         {
-            List<ToDoItem> records;
+            List<ToDoItem> records = new();
 
-            using StreamReader FileReader = new($"data/{filename}");
-            using (CsvReader CSVReader = new(FileReader, CultureInfo.InvariantCulture))
+            using StreamReader FileReader = new($"{PathToProject}/data/{filename}");
+            using (CsvReader CSVReader = new(FileReader, CultureInfo.CurrentCulture))
             {
-                records = CSVReader.GetRecords<ToDoItem>().ToList();
+                CSVReader.Read();
+                CSVReader.ReadHeader();
+                while (CSVReader.Read())
+                {
+                    string message = CSVReader.GetField<string>("Message");
+                    bool isImportant = CSVReader.GetField<bool>("IsImportant");
+                    DateTime deadline = CSVReader.GetField<DateTime>("Deadline");
+                    ItemStatus status = CSVReader.GetField<ItemStatus>("Status");
+
+                    records.Add(new ToDoItem(message, isImportant, deadline, status));
+                }
             }
 
             return records;
         }
 
-        public static string[] GetSavedData()
+        public static Dictionary<int, string> GetSavedData()
         {
-            string[] savedData = Directory.GetFiles("data", "*.csv");
+            Dictionary<int, string> savedData = new();
+            int counter = 1;
+
+            foreach (string data in Directory.GetFiles($"{PathToProject}/data", "*.csv"))
+            {
+                savedData.Add(counter, data.Split("/data/")[1]);
+                counter++;
+            }
 
             return savedData;
         }

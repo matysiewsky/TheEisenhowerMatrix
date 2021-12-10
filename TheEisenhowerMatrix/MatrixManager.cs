@@ -48,7 +48,7 @@ namespace TheEisenhowerMatrix
         }
 
 
-        private static List<ToDoItem> CreateListsOfItems(Dictionary<ItemType, List<ToDoItem>> ToDoMatrix, ItemType key)
+        private static List<ToDoItem> CreateListsOfItems(Dictionary<QuarterType, List<ToDoItem>> ToDoMatrix, QuarterType key)
         {
             var list = new List<ToDoItem>();
 
@@ -63,12 +63,12 @@ namespace TheEisenhowerMatrix
         }
 
 
-        public static void CreateMatrix(Dictionary<ItemType, List<ToDoItem>> dictionaryOfItems)
+        public static void CreateMatrix(Dictionary<QuarterType, List<ToDoItem>> dictionaryOfItems)
         {
-            var importantAndUrgentItems = CreateListsOfItems(dictionaryOfItems, ItemType.Urgentimportant);
-            var importantAndNotUrgentItems = CreateListsOfItems(dictionaryOfItems, ItemType.Noturgentimportant);
-            var notImportantAndUrgentItems = CreateListsOfItems(dictionaryOfItems, ItemType.Urgentnotimportant);
-            var notImportantAndNotUrgentItems = CreateListsOfItems(dictionaryOfItems, ItemType.Noturgentnotimportantitems);
+            var importantAndUrgentItems = CreateListsOfItems(dictionaryOfItems, QuarterType.Urgentimportant);
+            var importantAndNotUrgentItems = CreateListsOfItems(dictionaryOfItems, QuarterType.Noturgentimportant);
+            var notImportantAndUrgentItems = CreateListsOfItems(dictionaryOfItems, QuarterType.Urgentnotimportant);
+            var notImportantAndNotUrgentItems = CreateListsOfItems(dictionaryOfItems, QuarterType.Noturgentnotimportant);
 
             Display.PrintLine();
             Display.PrintHeader("A. important & urgent", "B. important & not urgent");
