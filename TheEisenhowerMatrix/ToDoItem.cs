@@ -17,6 +17,7 @@ namespace TheEisenhowerMatrix
         public ToDoItem()
         {
             Status = ItemStatus.Empty;
+            Deadline = DateTime.MaxValue;
         }
 
         // 2) for creating item on running Matrix:
@@ -82,6 +83,7 @@ namespace TheEisenhowerMatrix
             }
 
             return 0;
+            
         }
     }
 

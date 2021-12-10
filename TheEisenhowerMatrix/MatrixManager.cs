@@ -36,39 +36,27 @@ namespace TheEisenhowerMatrix
 
             for (int j = 0; j < longerListLength; j++)
             {
-                string firstParametr = (listOfItems1[j] == null) ? "" : $"{j + 1}) {listOfItems1[j]}";
-                string secondParametr = (listOfItems2[j] == null) ? "" : $"{j + 1}) {listOfItems2[j]}";
+                string firstParametr = (listOfItems1[j].Message == null) ? "" : $"{j + 1}) {listOfItems1[j]}";
+                string secondParametr = (listOfItems2[j].Message == null) ? "" : $"{j + 1}) {listOfItems2[j]}";
 
-                Display.PrintHorizontalLine(LinePosition.Left);
-                CreateTask(listOfItems1, j, firstParametr);
-                Display.PrintHorizontalLine(LinePosition.Center);
-                CreateTask(listOfItems2, j, secondParametr);
-                Display.PrintHorizontalLine(LinePosition.Right);
+                if((listOfItems1[j].Message != null) || (listOfItems2[j].Message != null))
+                {
+                    Display.PrintHorizontalLine(LinePosition.Left);
+                    CreateTask(listOfItems1, j, firstParametr);
+                    Display.PrintHorizontalLine(LinePosition.Center);
+                    CreateTask(listOfItems2, j, secondParametr);
+                    Display.PrintHorizontalLine(LinePosition.Right);
+                }
             }
         }
 
 
-        // private static List<ToDoItem> CreateListsOfItems(Dictionary<QuarterType, List<ToDoItem>> ToDoMatrix, QuarterType key)
-        // {
-        //     var list = new List<ToDoItem>();
-        //
-        //     foreach (var item in ToDoMatrix)
-        //     {
-        //         if (item.Key == key)
-        //         {
-        //             list = item.Value;
-        //         }
-        //     }
-        //     return list;
-        // }
-
-
-        public static void CreateMatrix(List<List<ToDoItem>> listOfQuartersLists)
+        public static void CreateMatrix(List<List<ToDoItem>> listOfQuarters)
         {
-            var importantAndUrgentItems = listOfQuartersLists[0];
-            var importantAndNotUrgentItems = listOfQuartersLists[1];
-            var notImportantAndUrgentItems = listOfQuartersLists[2];
-            var notImportantAndNotUrgentItems = listOfQuartersLists[3];
+            var importantAndUrgentItems = listOfQuarters[0];
+            var importantAndNotUrgentItems = listOfQuarters[1];
+            var notImportantAndUrgentItems = listOfQuarters[2];
+            var notImportantAndNotUrgentItems = listOfQuarters[3];
 
             importantAndUrgentItems.Sort();
             importantAndNotUrgentItems.Sort();
