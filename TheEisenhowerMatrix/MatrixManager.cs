@@ -70,6 +70,11 @@ namespace TheEisenhowerMatrix
             var notImportantAndUrgentItems = listOfQuartersLists[2];
             var notImportantAndNotUrgentItems = listOfQuartersLists[3];
 
+            importantAndUrgentItems.Sort();
+            importantAndNotUrgentItems.Sort();
+            notImportantAndUrgentItems.Sort();
+            notImportantAndNotUrgentItems.Sort();
+
             Display.PrintLine();
             Display.PrintHeader("A. important & urgent", "B. important & not urgent");
             Display.PrintLine();

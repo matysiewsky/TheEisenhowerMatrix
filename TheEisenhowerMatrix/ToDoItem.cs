@@ -3,7 +3,7 @@ using CsvHelper.Configuration;
 
 namespace TheEisenhowerMatrix
 {
-    public class ToDoItem
+    public class ToDoItem : IComparable<ToDoItem>
     {
         public string Message { get; }
         public bool IsImportant { get; }
