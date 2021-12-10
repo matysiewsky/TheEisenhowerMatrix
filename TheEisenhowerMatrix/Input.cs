@@ -49,7 +49,7 @@ namespace TheEisenhowerMatrix
                 }
             }
 
-            return savedData[choice];
+            return savedData[choice].Substring(0, savedData[choice].Length - 4);
         }
 
         public static string ChooseNameForMatrix()
@@ -113,7 +113,7 @@ namespace TheEisenhowerMatrix
 
                 if (DateTime.TryParseExact(userInput, "dd/MM/yyyy", CultureInfo.InvariantCulture,
                         DateTimeStyles.None, out DateTime chosenDeadline) &&
-                    chosenDeadline >= DateTime.Now)
+                    chosenDeadline >= DateTime.Now.Date)
                 {
                     itemDeadline = chosenDeadline;
                 }
