@@ -9,6 +9,7 @@ namespace TheEisenhowerMatrix
         public bool IsImportant { get; }
         public DateTime Deadline { get; }
         public ItemStatus Status { get; private set; }
+        public DeadlineStatus deadlineStatus { get; private set; }
 
 
         // 3 different constructors:
@@ -48,20 +49,20 @@ namespace TheEisenhowerMatrix
         public string GetFormattedDeadline() => $"{Deadline:dd-MM}";
 
 
-        // GetColor() method to select color of console depends on deadline
-        public ConsoleColor GetColor()
+        // GetDeadlineStatus() method returns DeadlineStatus
+        public DeadlineStatus GetDeadlineStatus()
         {
-            if ((Deadline - DateTime.Today).Days <= 1)
+            if ((Deadline - DateTime.Today).Days < 1)
             {
-                return ConsoleColor.Red;
+                return DeadlineStatus.OneDayLeft;
             }
 
             if ((Deadline - DateTime.Today).Days <= 3)
             {
-                return ConsoleColor.DarkYellow;
+                return DeadlineStatus.ThreeDaysLeft;
             }
 
-            return ConsoleColor.Green;
+            return DeadlineStatus.MoreThanThreeDaysLeft;
         }
 
 
@@ -93,9 +94,16 @@ namespace TheEisenhowerMatrix
 
     public enum ItemStatus
     {
-        // Two possible statuses of an item.
+        // Three possible statuses of an item.
         Unmarked,
         Marked,
         Empty
+    }
+
+    public enum DeadlineStatus
+    {
+        OneDayLeft,
+        ThreeDaysLeft,
+        MoreThanThreeDaysLeft
     }
 }
