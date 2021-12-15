@@ -55,7 +55,7 @@ namespace TheEisenhowerMatrix
                 // possible operations.
 
                 Display.ClearDisplay();
-                List<List<ToDoItem>> matrixToPrint = currentUserToDoMatrix.CreateListOfListsOfItems();
+                Dictionary<QuarterType, List<ToDoItem>> matrixToPrint = currentUserToDoMatrix.CreateDictionaryOfItems();
 
                 Display.MatrixNamePrint(currentUserToDoMatrix);
                 MatrixManager.CreateMatrix(matrixToPrint);
@@ -81,7 +81,7 @@ namespace TheEisenhowerMatrix
                         try
                         {
                             ToDoItem toDoItemToMarkAsDone =
-                                matrixToPrint[coordinatesToMarkAsDone.Item1][
+                                matrixToPrint[(QuarterType)coordinatesToMarkAsDone.Item1][
                                     coordinatesToMarkAsDone.Item2];
 
                             if (toDoItemToMarkAsDone.Status == ItemStatus.Marked)
@@ -110,7 +110,7 @@ namespace TheEisenhowerMatrix
                         try
                         {
                             ToDoItem toDoItemToMarkAsUndone =
-                                matrixToPrint[coordinatesToMarkAsUndone.Item1][
+                                matrixToPrint[(QuarterType)coordinatesToMarkAsUndone.Item1][
                                     coordinatesToMarkAsUndone.Item2];
 
                             if (toDoItemToMarkAsUndone.Status == ItemStatus.Unmarked)

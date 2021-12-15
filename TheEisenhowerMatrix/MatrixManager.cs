@@ -74,13 +74,13 @@ namespace TheEisenhowerMatrix
 
         //CreateMatrix() method gets list of lists of ToDoItems and have a logic to display its in
         //console matrix table
-        public static void CreateMatrix(List<List<ToDoItem>> listOfQuarters)
+        public static void CreateMatrix(Dictionary<QuarterType, List<ToDoItem>> dictionaryOfItems)
         {
-            var importantAndUrgentItems = listOfQuarters[0];
-            var importantAndNotUrgentItems = listOfQuarters[1];
-            var notImportantAndUrgentItems = listOfQuarters[2];
-            var notImportantAndNotUrgentItems = listOfQuarters[3];
-
+            var importantAndUrgentItems = CreateListsOfItems(dictionaryOfItems, QuarterType.UrgentImportant);
+            var importantAndNotUrgentItems = CreateListsOfItems(dictionaryOfItems, QuarterType.NotUrgentImportant);
+            var notImportantAndUrgentItems = CreateListsOfItems(dictionaryOfItems, QuarterType.UrgentNotImportant);
+            var notImportantAndNotUrgentItems = CreateListsOfItems(dictionaryOfItems, QuarterType.NotUrgentNotImportant);
+            
             importantAndUrgentItems.Sort();
             importantAndNotUrgentItems.Sort();
             notImportantAndUrgentItems.Sort();
@@ -95,6 +95,20 @@ namespace TheEisenhowerMatrix
             Display.PrintLine();
             CreateMatrixPart(notImportantAndUrgentItems, notImportantAndNotUrgentItems);
             Display.PrintLine();
+        }
+
+        private static List<ToDoItem> CreateListsOfItems(Dictionary<QuarterType, List<ToDoItem>> ToDoMatrix, QuarterType key)
+        {
+            var list = new List<ToDoItem>();
+
+            foreach (var item in ToDoMatrix)
+            {
+                if (item.Key == key)
+                {
+                    list = item.Value;
+                }
+            }
+            return list;
         }
     }
 

@@ -14,10 +14,10 @@ namespace TheEisenhowerMatrix
 
         private List<QuarterType> _quartersToCreate = new()
         {
-            QuarterType.Urgentimportant,
-            QuarterType.Noturgentimportant,
-            QuarterType.Urgentnotimportant,
-            QuarterType.Noturgentnotimportant
+            QuarterType.UrgentImportant,
+            QuarterType.NotUrgentImportant,
+            QuarterType.UrgentNotImportant,
+            QuarterType.NotUrgentNotImportant
         };
 
         public ToDoMatrix(string matrixName)
@@ -56,13 +56,13 @@ namespace TheEisenhowerMatrix
             }
         }
 
-        public List<List<ToDoItem>> CreateListOfListsOfItems() => new()
-            {
-                ToDoQuarters[0].GetItemsFromQuarter(),
-                ToDoQuarters[1].GetItemsFromQuarter(),
-                ToDoQuarters[2].GetItemsFromQuarter(),
-                ToDoQuarters[3].GetItemsFromQuarter()
-            };
+        public Dictionary<QuarterType, List<ToDoItem>> CreateDictionaryOfItems() => new()
+        {
+            { QuarterType.UrgentImportant, ToDoQuarters[0].GetItemsFromQuarter() },
+            { QuarterType.NotUrgentImportant, ToDoQuarters[1].GetItemsFromQuarter() },
+            { QuarterType.UrgentNotImportant, ToDoQuarters[2].GetItemsFromQuarter() },
+            { QuarterType.NotUrgentNotImportant, ToDoQuarters[3].GetItemsFromQuarter() }
+        };
 
         public List<ToDoItem> PrepareItemsForSaving()
         {

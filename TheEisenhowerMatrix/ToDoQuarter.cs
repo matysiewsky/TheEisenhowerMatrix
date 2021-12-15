@@ -35,9 +35,9 @@ namespace TheEisenhowerMatrix
 
     public enum QuarterType
     {
-        Urgentimportant,
-        Noturgentimportant,
-        Urgentnotimportant,
-        Noturgentnotimportant
+        UrgentImportant,
+        NotUrgentImportant,
+        UrgentNotImportant,
+        NotUrgentNotImportant
     }
 }
