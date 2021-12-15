@@ -6,12 +6,29 @@ namespace TheEisenhowerMatrix
     // static class MatrixManager - to create a console table 
     public static class MatrixManager
     {
-        // CreateTask() method to Display colored ToDoItem
-        private static void CreateTask(List<ToDoItem> listOfItems, int j, string task)
+        // GetConsoleColor() method to select color of console depends on deadline
+        private static ConsoleColor GetConsoleColor(DeadlineStatus deadlineStatus)
         {
-            if (listOfItems[j].Message != null)
+            switch (deadlineStatus)
             {
-                ConsoleColor color = listOfItems[j].GetColor();
+                case DeadlineStatus.OneDayLeft:
+                    return ConsoleColor.Red;
+                case DeadlineStatus.ThreeDaysLeft:
+                    return ConsoleColor.DarkYellow;
+                case DeadlineStatus.MoreThanThreeDaysLeft:
+                    return ConsoleColor.Green;
+                default:
+                    return ConsoleColor.Green;
+            }
+        }
+
+        // CreateTask() method to Display colored ToDoItem
+        private static void CreateTask(List<ToDoItem> listOfItems, int listPosition, string task)
+        {
+            if (listOfItems[listPosition].Status != ItemStatus.Empty)
+            {
+                DeadlineStatus deadlineStatus = listOfItems[listPosition].GetDeadlineStatus();
+                ConsoleColor color = GetConsoleColor(deadlineStatus);
                 Display.PrintColoredTask(color, task);
             }
             else
@@ -40,10 +57,10 @@ namespace TheEisenhowerMatrix
 
             for (int j = 0; j < longerListLength; j++)
             {
-                string firstParametr = (listOfItems1[j].Message == null) ? "" : $"{j + 1}) {listOfItems1[j]}";
-                string secondParametr = (listOfItems2[j].Message == null) ? "" : $"{j + 1}) {listOfItems2[j]}";
+                string firstParametr = (listOfItems1[j].Status == ItemStatus.Empty) ? "" : $"{j + 1}) {listOfItems1[j]}";
+                string secondParametr = (listOfItems2[j].Status == ItemStatus.Empty) ? "" : $"{j + 1}) {listOfItems2[j]}";
 
-                if((listOfItems1[j].Message != null) || (listOfItems2[j].Message != null))
+                if((listOfItems1[j].Status != ItemStatus.Empty) || (listOfItems2[j].Status != ItemStatus.Empty))
                 {
                     Display.PrintHorizontalLine(LinePosition.Left);
                     CreateTask(listOfItems1, j, firstParametr);
