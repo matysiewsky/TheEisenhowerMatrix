@@ -16,7 +16,7 @@ namespace TheEisenhowerMatrix
         {
             // saving List<ToDoItem> prepared by Matrix PrepareItemsForSaving() method to .csv file:
 
-            using StreamWriter FileWriter = new($"{PathToProject}/data/{toDoMatrix.Name}.csv");
+            using StreamWriter FileWriter = new($"{PathToProject}\\data\\{toDoMatrix.Name}.csv");
             using (CsvWriter CSVWriter = new(FileWriter, CultureInfo.CurrentCulture))
             {
                 CSVWriter.WriteRecords(toDoMatrix.PrepareItemsForSaving());
@@ -29,7 +29,7 @@ namespace TheEisenhowerMatrix
             // reading from existing csv file to create items from it - with mapping to exact fields to avoid bugs.
             List<ToDoItem> records = new();
 
-            using StreamReader FileReader = new($"{PathToProject}/data/{filename}.csv");
+            using StreamReader FileReader = new($"{PathToProject}\\data\\{filename}.csv");
             using (CsvReader CSVReader = new(FileReader, CultureInfo.CurrentCulture))
             {
                 CSVReader.Read();
@@ -56,9 +56,9 @@ namespace TheEisenhowerMatrix
             Dictionary<int, string> savedData = new();
             int counter = 1;
 
-            foreach (string data in Directory.GetFiles($"{PathToProject}/data", "*.csv"))
+            foreach (string data in Directory.GetFiles($"{PathToProject}\\data", "*.csv"))
             {
-                savedData.Add(counter, data.Split("/data/")[1]);
+                savedData.Add(counter, data.Split("\\data\\")[1]);
                 counter++;
             }
 
