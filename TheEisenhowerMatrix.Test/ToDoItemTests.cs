@@ -99,5 +99,60 @@ namespace TheEisenhowerMatrix.Test
             Assert.AreEqual(givenStatus, DeadlineStatus.MoreThanThreeDaysLeft);
         }
 
+        [Test]
+        public void ToString_WhenCalled_ShouldReturnUnmarkedString()
+        {
+            string expectedString = $"[ ] {_item.GetFormattedDeadline()} {_message}";
+            string givenString = _item.ToString();
+            Assert.AreEqual(expectedString, givenString);
+        }
+
+        [Test]
+        public void ToString_WhenCalled_ShouldReturnMarkedString()
+        {
+            string expectedString = $"[x] {_item.GetFormattedDeadline()} {_message}";
+            ToDoItem item = new ToDoItem(_message, _isImportant, _today, ItemStatus.Marked);
+            string givenString = item.ToString();
+            Assert.AreEqual(expectedString, givenString);
+        }
+
+        [Test]
+        public void ToString_WhenCalled_ShouldReturnEmptyString()
+        {
+            string expectedString = "";
+            ToDoItem item = new ToDoItem();
+            string givenString = item.ToString();
+            Assert.AreEqual(expectedString, givenString);
+        }
+
+        [Test]
+        public void CompareTo_WhenCalled_ShouldReturn0()
+        {
+            ToDoItem secondItem = new ToDoItem("New message", false, _today);
+            int givenInteger = _item.CompareTo(secondItem);
+            Assert.AreEqual(0, givenInteger);
+        }
+
+        [Test]
+        public void CompareTo_WhenCalled_ShouldReturnMinus1()
+        {
+            System.DateTime date1 = new System.DateTime(2021, 12, 3);
+            System.DateTime date2 = new System.DateTime(2021, 12, 28);
+            ToDoItem firstItem = new ToDoItem(_message, _isImportant, date1);
+            ToDoItem secondItem = new ToDoItem(_message, _isImportant, date2);
+            int givenInteger = firstItem.CompareTo(secondItem);
+            Assert.AreEqual(-1, givenInteger);
+        }
+
+        [Test]
+        public void CompareTo_WhenCalled_ShouldReturnPlus1()
+        {
+            System.DateTime date1 = new System.DateTime(2021, 12, 3);
+            System.DateTime date2 = new System.DateTime(2021, 12, 28);
+            ToDoItem firstItem = new ToDoItem(_message, _isImportant, date1);
+            ToDoItem secondItem = new ToDoItem(_message, _isImportant, date2);
+            int givenInteger = secondItem.CompareTo(firstItem);
+            Assert.AreEqual(1, givenInteger);
+        }
     }
 }
